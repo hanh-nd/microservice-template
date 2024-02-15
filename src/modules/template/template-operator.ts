@@ -1,13 +1,19 @@
 import { token } from 'brandi';
+import { BadRequestException } from '../../utils/errors';
+import { HelloRequest } from './interfaces';
 
 export interface TemplateManagementOperator {
-    hello(name: string): Promise<string>;
+    hello(request: HelloRequest): Promise<string>;
 }
 
 export class TemplateManagementOperatorImpl implements TemplateManagementOperator {
     constructor() {}
 
-    public async hello(name: string): Promise<string> {
+    public async hello(request: HelloRequest): Promise<string> {
+        const { name } = request;
+        if (!name) {
+            throw new BadRequestException('Name is required');
+        }
         return `Hello, ${name}!`;
     }
 }

@@ -1,3 +1,6 @@
+import { status } from '@grpc/grpc-js';
+import { BiDirectionalMap } from '../utils/map';
+
 export enum HttpStatus {
     OK = 200,
     CREATED = 201,
@@ -35,3 +38,13 @@ export const HttpStatusMessage = {
     [HttpStatus.INTERNAL_SERVER_ERROR]: 'Internal Server Error',
     [HttpStatus.SERVICE_UNAVAILABLE]: 'Service Unavailable',
 };
+
+export const GRPCHttpStatusMap = new BiDirectionalMap<status, HttpStatus>([
+    [status.OK, HttpStatus.OK],
+    [status.ALREADY_EXISTS, HttpStatus.ITEM_EXISTED],
+    [status.NOT_FOUND, HttpStatus.NOT_FOUND],
+    [status.INTERNAL, HttpStatus.INTERNAL_SERVER_ERROR],
+    [status.UNAUTHENTICATED, HttpStatus.UNAUTHORIZED],
+    [status.INVALID_ARGUMENT, HttpStatus.UNPROCESSABLE_ENTITY],
+    [status.PERMISSION_DENIED, HttpStatus.FORBIDDEN],
+]);

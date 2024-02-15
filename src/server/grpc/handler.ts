@@ -6,6 +6,7 @@ import {
 } from '../../modules/template/template-operator';
 import { TemplateServiceHandlers } from '../../proto/gen/TemplateService';
 import { ErrorWithStatus } from '../../utils/errors';
+import { HttpStatusConverter } from '../../utils/http-status';
 
 export class TemplateServiceHandlersFactory {
     constructor(private readonly templateManagementOperator: TemplateManagementOperator) {}
@@ -13,16 +14,9 @@ export class TemplateServiceHandlersFactory {
     public getHandlers(): TemplateServiceHandlers {
         return {
             Hello: async (call, callback) => {
-                const req = call.request;
-                const { name } = req;
-                if (!name) {
-                    return callback({
-                        message: 'Name is required',
-                        code: status.INVALID_ARGUMENT,
-                    });
-                }
+                const helloRequest = call.request;
                 try {
-                    const message = await this.templateManagementOperator.hello(name);
+                    const message = await this.templateManagementOperator.hello(helloRequest);
                     return callback(null, { message });
                 } catch (error) {
                     return this.handleError(error, callback);
@@ -33,9 +27,10 @@ export class TemplateServiceHandlersFactory {
 
     private handleError(e: unknown, callback: sendUnaryData<any>) {
         if (e instanceof ErrorWithStatus) {
+            const status = HttpStatusConverter.toGRPCStatus(e.status);
             return callback({
                 message: e.message,
-                code: e.status,
+                code: status,
             });
         } else if (e instanceof Error) {
             return callback({

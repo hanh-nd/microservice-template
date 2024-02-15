@@ -1,5 +1,6 @@
 import { status } from '@grpc/grpc-js';
 import { HttpStatus, HttpStatusMessage } from '../constants';
+import { HttpStatusConverter } from './http-status';
 
 export class ErrorWithStatus extends Error {
     constructor(
@@ -11,9 +12,17 @@ export class ErrorWithStatus extends Error {
         Error.captureStackTrace(this, this.constructor);
     }
 
-    public static wrapWithStatus(e: unknown, status: status): ErrorWithStatus {
+    public static wrapWithStatus(e: unknown, status: HttpStatus): ErrorWithStatus {
         if (e instanceof Error) {
             return new ErrorWithStatus(e.message, status);
+        }
+
+        return new ErrorWithStatus(JSON.stringify(e), status);
+    }
+
+    public static wrapWithGRPCStatus(e: unknown, status: status): ErrorWithStatus {
+        if (e instanceof Error) {
+            return new ErrorWithStatus(e.message, HttpStatusConverter.fromGRPCStatus(status));
         }
 
         return new ErrorWithStatus(JSON.stringify(e), status);
