@@ -5,7 +5,7 @@ import { SuccessResponse } from '../../../utils/response';
 import {
     TEMPLATE_MANAGEMENT_OPERATOR_TOKEN,
     TemplateManagementOperator,
-} from './../../../modules/template/template-operator';
+} from '../../../modules/template/template-operator';
 
 export function getTemplateRouter(templateManagementOperator: TemplateManagementOperator): Router {
     const router = Router();

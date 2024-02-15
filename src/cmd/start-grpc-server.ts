@@ -6,8 +6,8 @@ import * as db from '../dataaccess/db';
 import * as kafka from '../dataaccess/kafka';
 import * as jobs from '../jobs';
 import * as templateManagement from '../modules/template';
-import * as gRPCService from '../service/grpc';
-import { TEMPLATE_SERVICE_GRPC_SERVER_TOKEN } from '../service/grpc/server';
+import * as gRPCService from '../server/grpc';
+import { TEMPLATE_SERVICE_GRPC_SERVER_TOKEN } from '../server/grpc/server';
 import * as utils from '../utils';
 
 export async function startGRPCServer(envPath?: string): Promise<void> {

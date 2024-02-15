@@ -6,8 +6,8 @@ import * as db from '../dataaccess/db';
 import * as kafka from '../dataaccess/kafka';
 import * as jobs from '../jobs';
 import * as templateManagement from '../modules/template';
-import * as httpService from '../service/http';
-import { TEMPLATE_SERVICE_HTTP_SERVER_TOKEN } from '../service/http/server';
+import * as httpService from '../server/http';
+import { TEMPLATE_SERVICE_HTTP_SERVER_TOKEN } from '../server/http/server';
 import * as utils from '../utils';
 
 export async function startHTTPServer(envPath?: string): Promise<void> {
