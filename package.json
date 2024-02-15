@@ -5,8 +5,9 @@
     "main": "index.js",
     "scripts": {
         "generate-grpc": "./node_modules/.bin/proto-loader-gen-types --longs=Number --enums=Number --oneofs --grpcLib=@grpc/grpc-js --outDir=src/proto/gen src/proto/**/*.proto",
-        "build": "npm run generate-grpc && npx tsc --build",
-        "build-clean": "rimraf ./src/proto/gen && tsc --build --clean",
+        "clean": "rimraf ./src/proto/gen && rimraf .dist",
+        "build": "npm run clean && npm run generate-grpc && npx tsc --build",
+        "build-clean": "npm run clean && tsc --build --clean",
         "dev-initialize": "ts-node-dev src/main.ts --initialize",
         "dev": "ts-node-dev src/main.ts --start_http_server",
         "dev-grpc": "ts-node-dev src/main.ts --start_grpc_server",

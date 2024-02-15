@@ -14,7 +14,6 @@ export function generalErrorHandler(): ErrorRequestHandler {
 
 export function apiNotFoundHandler(): RequestHandler {
     return (req: Request, res: Response, next: NextFunction) => {
-        console.log('hihihihi');
         throw new NotFoundException('API not found!!');
     };
 }

@@ -11,7 +11,7 @@ export function getTemplateRouter(templateManagementOperator: TemplateManagement
 
     router.get('/api/template', async (req, res) => {
         const { name } = req.query;
-        const message = templateManagementOperator.hello({ name: name as string });
+        const message = await templateManagementOperator.hello({ name: name as string });
         return res.json(new SuccessResponse(message));
     });
 
