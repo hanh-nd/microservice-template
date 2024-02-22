@@ -2,7 +2,7 @@ export class BiDirectionalMap<T, K> {
     declare forward: Map<T, K>;
     declare backward: Map<K, T>;
 
-    constructor(values: [T, K][]) {
+    constructor(values: [T, K][] = []) {
         this.forward = new Map(values);
         this.backward = new Map(values.map(([k, v]) => [v, k]));
     }
@@ -16,13 +16,13 @@ export class BiDirectionalMap<T, K> {
     }
 
     set(key: T, value: K) {
+        this.backward.delete(this.forward.get(key)!);
         this.forward.set(key, value);
         this.backward.set(value, key);
     }
 
     delete(key: T) {
-        const value = this.forward.get(key);
+        this.backward.delete(this.forward.get(key)!);
         this.forward.delete(key);
-        this.backward.delete(value!);
     }
 }

@@ -1,8 +1,8 @@
 import minimist from 'minimist';
-import { initialize } from './cmd/initialize';
-import { startGRPCServer } from './cmd/start-grpc-server';
-import { startHTTPServer } from './cmd/start-http-server';
-import { startKafkaConsumer } from './cmd/start-kafka-consumer';
+import { initialize } from '@src/cmd/initialize';
+import { startGRPCServer } from '@src/cmd/start-grpc-server';
+import { startHTTPServer } from '@src/cmd/start-http-server';
+import { startKafkaConsumer } from '@src/cmd/start-kafka-consumer';
 
 const args = minimist(process.argv);
 
